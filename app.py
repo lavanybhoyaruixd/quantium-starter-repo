@@ -4,6 +4,7 @@ import plotly.express as px
 
 # Load data
 df = pd.read_csv("processed_sales.csv")
+df.columns = df.columns.str.strip()
 df["Date"] = pd.to_datetime(df["Date"])
 df = df.sort_values("Date")
 
@@ -47,7 +48,6 @@ app.layout = html.Div(
     ]
 )
 
-# Callback to update graph
 @app.callback(
     Output("sales-graph", "figure"),
     Input("region-filter", "value")
@@ -77,4 +77,4 @@ def update_graph(selected_region):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run_server(debug=True)
